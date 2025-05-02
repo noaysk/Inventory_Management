@@ -7,11 +7,12 @@ const LoginPage = ({ onLogin }) => {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    if (username === "admin" && password === "password123") {
+    // ✅ ここで固定のユーザー名・パスワードをチェック
+    if (username === "admin" && password === "password") {
       onLogin(true);
-      navigate("/admin"); // ログイン成功時に管理画面へ遷移
+      navigate("/admin"); // ログイン成功で管理画面へ遷移
     } else {
-      alert("ログイン失敗！ユーザー名またはパスワードが間違っています。");
+      alert("ログイン失敗！IDまたはパスワードが間違っています。");
     }
   };
 
@@ -29,7 +30,7 @@ const LoginPage = ({ onLogin }) => {
         value={password} onChange={(e) => setPassword(e.target.value)} 
       />
       <button 
-        className="px-4 py-2 bg-sky-500 text-white rounded  hover:bg-sky-700 dark:bg-sky-700 dark:hover:bg-sky-900" 
+        className="px-4 py-2 bg-sky-500 text-white rounded hover:bg-sky-700 dark:bg-sky-700 dark:hover:bg-sky-900" 
         onClick={handleLogin}
       >
         LogIn
