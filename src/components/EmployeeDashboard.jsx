@@ -7,9 +7,13 @@ const EmployeeDashboard = () => {
   const [inventory, setInventory] = useState([]);
 
   useEffect(() => {
-    fetch("/inventory.json") // ✅ JSONファイルからデータ取得
+    fetch("http://localhost:5000/api/inventory") // ✅ ローカル環境用の URL
       .then((response) => response.json())
-      .then((data) => setInventory(data));
+      .then((data) => {
+        console.log("📌 フロントエンドで取得したデータ:", data); // ✅ データ確認！
+        setInventory(data); // ✅ ステートにセット！
+      })
+      .catch((error) => console.error("❌ データ取得エラー:", error));
   }, []);
 
   return (
