@@ -1,16 +1,21 @@
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import EmployeeDashboard from "./components/EmployeeDashboard";
+import LoginPage from "./components/LoginPage";
+import AdminDashboard from "./components/AdminDashboard";
 
-
-import './App.css'
-import EmployeeDashboard from "./components/EmployeeDashboard"; 
-function App() {
-
+const App = () => {
+  const [isAdmin, setIsAdmin] = useState(false);
 
   return (
-    <div className='p-6'>
-    <EmployeeDashboard />
-   
-    </div>
-  )
-}
+    <Router>
+      <Routes>
+        <Route path="/" element={<EmployeeDashboard />} />
+        <Route path="/login" element={<LoginPage onLogin={setIsAdmin} />} />
+        <Route path="/admin" element={isAdmin ? <AdminDashboard /> : <LoginPage />} />
+      </Routes>
+    </Router>
+  );
+};
 
-export default App
+export default App;
