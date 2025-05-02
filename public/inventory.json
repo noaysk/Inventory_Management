@@ -1,0 +1,6 @@
+[
+    { "id": 1, "name": "りんご", "quantity": 5, "price": 300, "supplier": "青果市場", "arrivalDate": "2025-05-01" },
+    { "id": 2, "name": "肉", "quantity": 10, "price": 1500, "supplier": "肉屋", "arrivalDate": "2025-04-28" },
+    { "id": 3, "name": "くま", "quantity": 1, "price": 500, "supplier": "動物園", "arrivalDate": "2025-04-25" }
+  ]
+  

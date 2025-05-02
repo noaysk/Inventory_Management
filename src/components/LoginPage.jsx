@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const LoginPage = ({ onLogin }) => {
+const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -9,7 +9,6 @@ const LoginPage = ({ onLogin }) => {
   const handleLogin = () => {
     // ✅ ここで固定のユーザー名・パスワードをチェック
     if (username === "admin" && password === "password") {
-      onLogin(true);
       navigate("/admin"); // ログイン成功で管理画面へ遷移
     } else {
       alert("ログイン失敗！IDまたはパスワードが間違っています。");
