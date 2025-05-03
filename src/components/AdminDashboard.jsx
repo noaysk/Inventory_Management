@@ -1,85 +1,123 @@
 import React, { useState, useEffect } from "react";
+import  {db}  from "../../firebase";
+import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from "firebase/firestore";  // 必要な関数をインポート
 import AdminInventoryTable from "./AdminInventoryTable";
 
-const AdminDashboard = () => {
-  const [inventory, setInventory] = useState([]);  // ✅ 在庫データのステート管理
-  const [editMode, setEditMode] = useState(false);  // ✅ 編集モードの状態管理
 
-  // ✅ 在庫データを取得
+
+const AdminDashboard = () => {
+  const [inventory, setInventory] = useState([]);
+  const [newItem, setNewItem] = useState({
+    name: "",
+    quantity: 1,
+    price: 0,
+    supplier: "",
+    arrivalDate: "",
+  });
+
   useEffect(() => {
     const fetchInventory = async () => {
-      try {
-        const response = await fetch("http://mountshiga.vercel.app/api/inventory");
-        const data = await response.json();
-        console.log("📌 API から取得したデータ:", data);
-        setInventory(data);
-      } catch (error) {
-        console.error("❌ データ取得エラー:", error);
-      }
+      const querySnapshot = await getDocs(collection(db, "inventory"));
+      const data = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      setInventory(data);
     };
-
     fetchInventory();
   }, []);
 
-  const handleSave = async () => {
+  const handleAddItem = async () => {
     try {
-      const response = await fetch("http://mountshiga.vercel.app/api/update-inventory", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(inventory),
-      });
-
-      const data = await response.json();
-      console.log("✅ 保存成功:", data.message);
-      setEditMode(false);
+      const docRef = await addDoc(collection(db, "inventory"), newItem);
+      setInventory((prevInventory) => [...prevInventory, { ...newItem, id: docRef.id }]);
+      setNewItem({ name: "", quantity: 1, price: 0, supplier: "", arrivalDate: "" }); // Reset after adding
     } catch (error) {
-      console.error("❌ 保存エラー:", error);
+      console.error("アイテム追加エラー:", error);
     }
   };
 
-  const handleAdd = () => {
-    const newItem = {
-      id: Date.now(),
-      name: "新しい商品",
-      quantity: 1,
-      price: 1000,
-      supplier: "未設定",
-      arrivalDate: "",
-    };
-    setInventory((prevInventory) => [...prevInventory, newItem]);
+  const handleEditItem = async (index, key, value) => {
+    const updatedItem = { ...inventory[index], [key]: value };
+    const itemDoc = doc(db, "inventory", inventory[index].id);
+    try {
+      await updateDoc(itemDoc, updatedItem);
+      setInventory((prevInventory) =>
+        prevInventory.map((item, i) => (i === index ? updatedItem : item))
+      );
+    } catch (error) {
+      console.error("アイテム更新エラー:", error);
+    }
+  };
+
+  const handleDeleteItem = async (index) => {
+    const itemDoc = doc(db, "inventory", inventory[index].id);
+    try {
+      await deleteDoc(itemDoc);
+      setInventory((prevInventory) => prevInventory.filter((_, i) => i !== index));
+    } catch (error) {
+      console.error("アイテム削除エラー:", error);
+    }
   };
 
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">管理者ダッシュボード</h1>
       
-      <div className="flex justify-between mb-4">
-        <div>
-          <button 
-            className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
-            onClick={() => setEditMode((prev) => !prev)}
-          >
-            {editMode ? "編集終了" : "編集"}
-          </button>
-          {editMode && (
-            <button 
-              onClick={handleAdd} 
-              className="px-4 py-2 bg-green-500 text-white rounded"
-            >
-              追加する
-            </button>
-          )}
-        </div>
+      {/* 商品追加フォーム */}
+      <div className="mb-4">
+        <input
+          type="text"
+          placeholder="商品名"
+          value={newItem.name}
+          onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
+          className="mb-2 p-2 border"
+        />
+        <input
+          type="number"
+          placeholder="数量"
+          value={newItem.quantity}
+          onChange={(e) => setNewItem({ ...newItem, quantity: e.target.value })}
+          className="mb-2 p-2 border"
+        />
+        <input
+          type="number"
+          placeholder="価格"
+          value={newItem.price}
+          onChange={(e) => setNewItem({ ...newItem, price: e.target.value })}
+          className="mb-2 p-2 border"
+        />
+        <p className="mb-2">
+        合計金額: {Number(newItem.price || 0) * Number(newItem.quantity || 0)} 円
+      </p>
 
-        <button 
-          onClick={handleSave} 
+        <input
+          type="text"
+          placeholder="仕入先"
+          value={newItem.supplier}
+          onChange={(e) => setNewItem({ ...newItem, supplier: e.target.value })}
+          className="mb-2 p-2 border"
+        />
+        <input
+          type="date"
+          placeholder="入荷日"
+          value={newItem.arrivalDate}
+          onChange={(e) => setNewItem({ ...newItem, arrivalDate: e.target.value })}
+          className="mb-2 p-2 border"
+        />
+        <button
+          onClick={handleAddItem}
           className="px-4 py-2 bg-green-500 text-white rounded"
         >
-          保存する
+          商品追加
         </button>
       </div>
 
-      <AdminInventoryTable inventory={inventory} setInventory={setInventory} editMode={editMode} />
+      {/* 管理者用在庫一覧テーブル */}
+      <AdminInventoryTable
+        inventory={inventory}
+        setInventory={setInventory}
+        editMode={true}
+        onEdit={handleEditItem}
+        onDelete={handleDeleteItem}
+      />
     </div>
   );
 };
