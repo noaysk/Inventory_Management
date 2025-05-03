@@ -21,8 +21,8 @@ const InventoryTable = ({ inventory, isAdmin, onEdit, onDelete }) => {
     </thead>
     
     <tbody>
-  {inventory.map((item) => (
-    <tr key={item.id}>
+    {inventory.map((item, index) => (
+      <tr key={item.id || `item-${index}`}> 
       <td className="border p-2">{item.name}</td>
       <td className="border p-2">{item.quantity}</td>
       <td className="border p-2">{item.price}円</td>

@@ -1,22 +1,27 @@
-import React, { useState } from "react";
-
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // ✅ ページ読み込み時に `localStorage` を確認し、未認証ならログアウト！
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user || !user.isAdmin) {
+      localStorage.removeItem("user");  // 🚀 ログアウト時に確実に `localStorage` を削除！
+    }
+  }, []);
 
   const handleLogin = () => {
-    const usernameInput = document.getElementById("username").value;
-    const passwordInput = document.getElementById("password").value;
-  
-    // ✅ 仮の管理者アカウント
     const adminUser = { username: "admin", password: "password", isAdmin: true };
-  
-    if (usernameInput === adminUser.username && passwordInput === adminUser.password) {
+
+    if (username === adminUser.username && password === adminUser.password) {
       localStorage.setItem("user", JSON.stringify(adminUser));
-      window.location.href = "/admin";  // ✅ 成功したら管理者ページへ
+      navigate("/admin");
     } else {
-      alert("ログイン失敗！IDまたはパスワードが間違っています。");  // ✅ 失敗したらアラート表示！
+      alert("ログイン失敗！IDまたはパスワードが間違っています。");
     }
   };
 
