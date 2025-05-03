@@ -8,7 +8,7 @@ const InventoryTable = ({ inventory }) => {
           <th className="border p-2">価格</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className="text-right">
         {inventory.map((item) => (
           <tr key={item.id}>
             <td className="border p-2">{item.name}</td>
