@@ -1,17 +1,22 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
 
   const handleLogin = () => {
-    // ✅ ここで固定のユーザー名・パスワードをチェック
-    if (username === "admin" && password === "password") {
-      navigate("/admin"); // ログイン成功で管理画面へ遷移
+    const usernameInput = document.getElementById("username").value;
+    const passwordInput = document.getElementById("password").value;
+  
+    // ✅ 仮の管理者アカウント
+    const adminUser = { username: "admin", password: "password", isAdmin: true };
+  
+    if (usernameInput === adminUser.username && passwordInput === adminUser.password) {
+      localStorage.setItem("user", JSON.stringify(adminUser));
+      window.location.href = "/admin";  // ✅ 成功したら管理者ページへ
     } else {
-      alert("ログイン失敗！IDまたはパスワードが間違っています。");
+      alert("ログイン失敗！IDまたはパスワードが間違っています。");  // ✅ 失敗したらアラート表示！
     }
   };
 
