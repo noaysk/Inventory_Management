@@ -73,13 +73,14 @@ const AdminDashboard = () => {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">管理者ダッシュボード</h1>
+  <h1 className="text-2xl font-bold mb-4">管理者ダッシュボード</h1>
 
-      <div className="mb-4 w-full">
-  <table className="w-full table-fixed border-collapse border">
+  {/* スマホ対応：テーブルに横スクロール */}
+  <div className="mb-4 overflow-x-auto sm:overflow-x-visible">
+  <table className="min-w-[800px] sm:w-full table-fixed border-collapse border">
     <tbody>
       <tr>
-        <td className="border p-2 w-2/6">
+        <td className="border p-2 w-[200px] sm:w-2/6">
           <input
             type="text"
             placeholder="商品名"
@@ -88,28 +89,28 @@ const AdminDashboard = () => {
             className="w-full break-words"
           />
         </td>
-        <td className="border p-2 w-1/6">
+        <td className="border p-2 w-[120px] sm:w-1/6">
           <input
             type="number"
             placeholder="数量"
             value={newItem.quantity}
             onChange={(e) => setNewItem({ ...newItem, quantity: e.target.value })}
-            className="w-full "
+            className="w-full"
           />
         </td>
-        <td className="border p-2 w-1/6">
+        <td className="border p-2 w-[120px] sm:w-1/6">
           <input
             type="number"
             placeholder="価格"
             value={newItem.price}
             onChange={(e) => setNewItem({ ...newItem, price: e.target.value })}
-            className="w-full "
+            className="w-full"
           />
         </td>
-        <td className="border p-2 w-1/6 ">
+        <td className="border p-2 w-[140px] sm:w-1/6">
           {Number(newItem.price || 0) * Number(newItem.quantity || 0)} 円
         </td>
-        <td className="border p-2 w-1/6">
+        <td className="border p-2 w-[180px] sm:w-1/6">
           <input
             type="text"
             placeholder="仕入先"
@@ -118,7 +119,7 @@ const AdminDashboard = () => {
             className="w-full break-words"
           />
         </td>
-        <td className="border p-2 w-1/6">
+        <td className="border p-2 w-[160px] sm:w-1/6">
           <input
             type="date"
             value={newItem.arrivalDate}
@@ -126,7 +127,7 @@ const AdminDashboard = () => {
             className="w-full"
           />
         </td>
-        <td className="border p-2 w-1/6 text-center">
+        <td className="border p-2 w-[100px] sm:w-1/6 text-center">
           <button
             onClick={handleAddItem}
             className="bg-green-500 text-white px-2 py-1 rounded"
@@ -139,15 +140,19 @@ const AdminDashboard = () => {
   </table>
 </div>
 
-    
-      <AdminInventoryTable
-        inventory={inventory}
-        setInventory={setInventory}
-        editMode={true}
-        onEdit={handleEditItem}
-        onDelete={handleDeleteItem}
-      />
-    </div>
+
+  {/* テーブルもスクロール対応 */}
+  <div className="w-full overflow-x-auto">
+    <AdminInventoryTable
+      inventory={inventory}
+      setInventory={setInventory}
+      editMode={true}
+      onEdit={handleEditItem}
+      onDelete={handleDeleteItem}
+    />
+  </div>
+</div>
+
   );
 };
 
