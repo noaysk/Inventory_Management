@@ -24,11 +24,7 @@ app.get("/api/inventory", async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`✅ サーバー起動: ポート ${PORT}`);
-});
-
+// POST リクエストを受け取って在庫を更新
 app.post("/api/update-inventory", async (req, res) => {
   try {
     const updatedInventory = req.body;
@@ -41,9 +37,5 @@ app.post("/api/update-inventory", async (req, res) => {
   }
 });
 
-app.get("/api/update-inventory", (req, res) => {
-  res.status(405).json({ error: "このエンドポイントは POST のみ対応しています。" });
-});
-
-
-app.listen(5000, () => console.log("🚀 サーバー起動！"));
+// `export default` で Vercel にエクスポート
+export default app;
