@@ -2,7 +2,7 @@ const InventoryTable = ({ inventory }) => {
   return (
     <table className="w-full border-collapse border border-gray-300">
       <thead>
-        <tr className="bg-gray-100">
+        <tr className="bg-gray-100 dark:bg-sky-950">
           <th className="border p-2">商品名</th>
           <th className="border p-2">数量</th>
           <th className="border p-2">価格</th>
