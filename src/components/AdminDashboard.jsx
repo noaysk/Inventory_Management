@@ -31,6 +31,16 @@ const AdminDashboard = () => {
     }
   };
   
+  const handleAdd = () => {
+    const newItem = {
+      name: "新しい商品",
+      quantity: 1,
+      price: 1000,
+      supplier: "未設定",
+      arrivalDate: "",
+    };
+    setInventory((prevInventory) => [...prevInventory, newItem]);  // ✅ 新しいアイテムを追加！
+  };
   
   
   
@@ -41,12 +51,24 @@ const AdminDashboard = () => {
       
       {/* ✅ ボタンをテーブルの外に配置 */}
       <div className="flex justify-between mb-4">
+      <td className="border p-2">
       <button 
-        onClick={() => setEditMode(!editMode)} 
-        className="px-4 py-2 bg-blue-500 text-white rounded"
+        className="bg-blue-500 text-white px-2 py-1 rounded mr-2"
+        onClick={() => setEditMode(true)}
       >
-        {editMode ? "編集を終了" : "編集モード"}
+        編集
       </button>
+      {editMode && (
+        <button 
+          onClick={handleAdd} 
+          className="px-4 py-2 bg-green-500 text-white rounded"
+        >
+          追加する
+        </button>
+      )}
+      
+    </td>
+    
       <button 
         onClick={handleSave} 
         className="px-4 py-2 bg-green-500 text-white rounded"

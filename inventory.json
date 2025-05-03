@@ -4,7 +4,7 @@
     "name": "肉",
     "quantity": 10,
     "price": "1499",
-    "supplier": "肉屋",
+    "supplier": "肉",
     "arrivalDate": "2025-04-28"
   },
   {
@@ -14,5 +14,19 @@
     "price": 500,
     "supplier": "動物園",
     "arrivalDate": "2025-04-25"
+  },
+  {
+    "name": "新しい商品",
+    "quantity": "4",
+    "price": 1000,
+    "supplier": "未設定",
+    "arrivalDate": ""
+  },
+  {
+    "name": "新しい商品",
+    "quantity": 1,
+    "price": 1000,
+    "supplier": "未設定",
+    "arrivalDate": ""
   }
 ]
