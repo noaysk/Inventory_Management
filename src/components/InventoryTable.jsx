@@ -1,10 +1,5 @@
-const InventoryTable = ({ inventory, isAdmin, onEdit, onDelete }) => {
-    const handleChange = (id, field, value) => {
-      const updatedInventory = inventory.map(item =>
-        item.id === id ? { ...item, [field]: value } : item
-      );
-      onEdit(updatedInventory);
-    };
+const InventoryTable = ({ inventory, isAdmin, onDelete }) => {
+ 
   
     return (
       <table className="w-full border-collapse border border-gray-300">

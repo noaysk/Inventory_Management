@@ -16,10 +16,11 @@
     "arrivalDate": "2025-04-25"
   },
   {
-    "name": "アイス",
-    "quantity": "4",
+    "id": 1746239065777,
+    "name": "新しい商品",
+    "quantity": 1,
     "price": 1000,
-    "supplier": "氷",
+    "supplier": "未設定",
     "arrivalDate": ""
   }
 ]

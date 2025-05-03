@@ -12,7 +12,7 @@ const ProtectedRoute = ({ children }) => {
   let user;
   try {
     user = JSON.parse(rawUser);
-  } catch (e) {
+  } catch {
     localStorage.removeItem("user");
     return <Navigate to="/login" replace />;
   }
