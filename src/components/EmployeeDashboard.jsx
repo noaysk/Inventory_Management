@@ -7,7 +7,7 @@ const EmployeeDashboard = () => {
   const [inventory, setInventory] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/inventory") // ✅ ローカル環境用の URL
+    fetch("http://mountshiga.vercel.app/api/inventory") // ✅ ローカル環境用の URL
       .then((response) => response.json())
       .then((data) => {
         console.log("📌 フロントエンドで取得したデータ:", data); // ✅ データ確認！

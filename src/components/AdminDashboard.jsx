@@ -9,7 +9,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchInventory = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/inventory");
+        const response = await fetch("http://mountshiga.vercel.app/api/inventory");
         const data = await response.json();
         console.log("📌 API から取得したデータ:", data);
         setInventory(data);
@@ -23,7 +23,7 @@ const AdminDashboard = () => {
 
   const handleSave = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/update-inventory", {
+      const response = await fetch("http://mountshiga.vercel.app/api/update-inventory", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(inventory),
