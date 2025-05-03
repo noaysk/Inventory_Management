@@ -41,7 +41,7 @@ const AdminInventoryTable = ({ inventory, editMode, onEdit, onDelete }) => {
             <tr key={item.id}>
               <td className="border p-2 break-words text-left">
                 {editMode ? (
-                  <input
+                  <textarea
                     type="text"
                     value={item.name}
                     className="w-full break-words text-left"
@@ -109,7 +109,7 @@ const AdminInventoryTable = ({ inventory, editMode, onEdit, onDelete }) => {
               {editMode && (
                 <td className="border p-2 text-center">
                   <button
-                    className="bg-red-500 text-white px-2 py-1 rounded"
+                    className="bg-red-500 hover:bg-red-700 text-white px-5 py-2 rounded"
                     onClick={() => onDelete(index)}
                   >
                     削除

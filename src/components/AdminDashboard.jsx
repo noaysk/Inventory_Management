@@ -81,7 +81,7 @@ const AdminDashboard = () => {
     <tbody>
       <tr>
         <td className="border p-2 w-[200px] sm:w-2/6">
-          <input
+          <textarea
             type="text"
             placeholder="商品名"
             value={newItem.name}
@@ -130,7 +130,7 @@ const AdminDashboard = () => {
         <td className="border p-2 w-[100px] sm:w-1/6 text-center">
           <button
             onClick={handleAddItem}
-            className="bg-green-500 text-white px-2 py-1 rounded"
+            className="bg-green-500 hover:bg-green-700 text-white px-5 py-2 rounded"
           >
             追加
           </button>
