@@ -1,5 +1,3 @@
-// ProtectedRoute.jsx（改良版）
-
 import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {

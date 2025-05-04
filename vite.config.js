@@ -7,5 +7,5 @@ export default defineConfig({
   build: {
     outDir: "dist",
   },
-  base: "/", // ✅ Vercel用に `base` を明示！
+  base: "/",
 });

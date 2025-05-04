@@ -3,9 +3,9 @@ const InventoryTable = ({ inventory }) => {
     <table className="w-full table-fixed border-collapse border border-gray-300">
       <thead className="">
         <tr className="bg-gray-100 dark:bg-sky-950">
-          <th className="border p-2 w-1/2">商品名</th>   {/* 2/4 */}
-          <th className="border p-2 w-1/4">数量</th>   {/* 1/4 */}
-          <th className="border p-2 w-1/4">価格</th>   {/* 1/4 */}
+          <th className="border p-2 w-1/2">商品名</th>
+          <th className="border p-2 w-1/4">数量</th>
+          <th className="border p-2 w-1/4">価格</th>
         </tr>
       </thead>
       <tbody>

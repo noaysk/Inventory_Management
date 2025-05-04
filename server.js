@@ -4,12 +4,11 @@ import bodyParser from "body-parser";
 import fs from "fs";
 
 const app = express();
-app.use(cors({ origin: "*" }));  // ✅ CORS を許可！
+app.use(cors({ origin: "*" }));
 app.use(bodyParser.json());
 
-const filePath = "./inventory.json";  // ✅ 確実に `inventory.json` が存在するパスを指定！
+const filePath = "./inventory.json";
 
-// ✅ `GET /api/inventory` のルートを定義！
 app.get("/api/inventory", async (req, res) => {  
   try {
     if (!fs.existsSync(filePath)) {  // ✅ ファイルが存在するかチェック！
@@ -24,7 +23,6 @@ app.get("/api/inventory", async (req, res) => {
   }
 });
 
-// POST リクエストを受け取って在庫を更新
 app.post("/api/update-inventory", async (req, res) => {
   try {
     const updatedInventory = req.body;
@@ -37,5 +35,4 @@ app.post("/api/update-inventory", async (req, res) => {
   }
 });
 
-// `export default` で Vercel にエクスポート
 export default app;

@@ -1,11 +1,9 @@
-// EmployeeDashboard.jsx
 import React, { useState, useEffect } from "react";
-import { db } from "../../firebase"; // default exportに合わせてインポート
+import { db } from "../../firebase";
 import { collection, getDocs } from "firebase/firestore";
 import InventoryTable from "./InventoryTable";
 import { useNavigate } from "react-router-dom";
 
-// EmployeeDashboardコンポーネント
 const EmployeeDashboard = () => {
   const navigate = useNavigate();
   const [inventory, setInventory] = useState([]);
