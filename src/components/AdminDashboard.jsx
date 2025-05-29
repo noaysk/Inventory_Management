@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { db } from "../../firebase";
 import {
   collection,
@@ -97,9 +97,26 @@ const AdminDashboard = () => {
     }
   };
 
+  // ▼ 仕入先の50音順でソートの下にそのまま
+const totalAmount = useMemo(() => {
+  return inventory.reduce((sum, item) => {
+    const price = Number(item.price) || 0;
+    const quantity = Number(item.quantity) || 0;
+    return sum + price * quantity;
+  }, 0);
+}, [inventory]);
+
+
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">管理者ダッシュボード</h1>
+      <div className="grid grid-cols-3  mb-4">
+        <h1 className="text-2xl font-bold">ダッシュボード</h1>
+        <div></div>
+        <div className="flex flex-wrap">
+          <h2 className="">合計金額</h2>
+          <p className="ml-5 text-xl font-bold">{totalAmount.toLocaleString()} 円</p>
+        </div>
+      </div>
       <div className="mb-4 overflow-x-auto sm:overflow-x-visible">
         <table className="min-w-[800px] sm:w-full table-fixed border-collapse border">
           <tbody>
