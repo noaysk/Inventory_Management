@@ -111,7 +111,7 @@ const totalAmount = useMemo(() => {
     <div className="p-6">
       <div className="grid grid-cols-2 mb-4">
         <h1 className="text-2xl font-bold">ダッシュボード</h1>
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap justify-end">
           <h2 className="">合計金額</h2>
           <p className="ml-5 text-xl font-bold">{totalAmount.toLocaleString()} 円</p>
         </div>
